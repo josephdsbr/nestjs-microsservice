@@ -12,11 +12,14 @@ export class UsersService {
     private userRepository: UserRepository,
   ) {}
 
-  async createAdminUser(createUserDTO: CreateUserDTO): Promise<User> {
+  async createUser(
+    createUserDTO: CreateUserDTO,
+    role: UserRole,
+  ): Promise<User> {
     if (createUserDTO.password != createUserDTO.passwordConfirmation) {
       throw new UnprocessableEntityException('As senhas não conferem.');
     } else {
-      return this.userRepository.createUser(createUserDTO, UserRole.ADMIN);
+      return this.userRepository.createUser(createUserDTO, role);
     }
   }
 }

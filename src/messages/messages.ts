@@ -16,4 +16,6 @@ export class Messages {
     'User password confirmation must no be null.';
   static readonly USER_PASSWORD_CONFIRMATION_MIN_LENGTH_RESTRICTION =
     'User password confirmation min length restriction';
+  static readonly USER_EMAIL_DOES_NOT_EXIST = 'User email does not exist.';
+  static USER_PASSWORD_DOES_NOT_MATCH = 'User password does not match.';
 }

@@ -1,5 +1,5 @@
 import { create } from 'domain';
-import { User } from 'src/users/user.entity';
+import { User } from 'src/modules/users/user.entity';
 
 export class ReturnUserDTO {
   readonly id: string;

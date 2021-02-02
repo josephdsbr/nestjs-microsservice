@@ -1,3 +1,4 @@
+import { CredentialsDTO } from './../auth/dtos/credentials-dto';
 import { UserRole } from './domain/user-role';
 import { CreateUserDTO } from './dtos/crete-user-dto';
 import { User } from './user.entity';
@@ -32,10 +33,7 @@ export class UserRepository extends Repository<User> {
     user.password = await this.hashPassword(password, user.salt);
 
     try {
-      await user.save();
-      delete user.password;
-      delete user.salt;
-      return user;
+      return await user.save();
     } catch (error) {
       if (error.code.toString() === '23505') {
         throw new ConflictException('Endereço de email já está em uso');
@@ -45,6 +43,10 @@ export class UserRepository extends Repository<User> {
         );
       }
     }
+  }
+
+  async findByEmail(email: string): Promise<User> {
+    return await this.findOne({ email, status: true });
   }
 
   private async hashPassword(password: string, salt: string): Promise<string> {

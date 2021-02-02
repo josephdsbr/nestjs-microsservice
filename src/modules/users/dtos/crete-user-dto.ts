@@ -1,5 +1,5 @@
-import { Messages } from './../../messages/messages';
 import { IsEmail, IsNotEmpty, MaxLength, MinLength } from 'class-validator';
+import { Messages } from 'src/messages/messages';
 
 export class CreateUserDTO {
   @IsNotEmpty({
