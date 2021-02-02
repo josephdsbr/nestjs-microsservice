@@ -1,3 +1,4 @@
+import { RolesGuard } from './../../guards/roles-guard';
 import { ReturnUserDTOBuilder } from '../../models/builders/return-user-dto.builder';
 import { ReturnUserDTO } from '../../models/dtos/return-user-dto';
 import { CreateUserDTO } from './dtos/crete-user-dto';
@@ -6,13 +7,15 @@ import { Body, Controller, Post, Query, ValidationPipe } from '@nestjs/common';
 import { UserRole } from './domain/user-role';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import Role from 'src/decorators/role.decorator';
 
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Post('admin')
-  @UseGuards(AuthGuard())
+  @Role(UserRole.ADMIN)
+  @UseGuards(AuthGuard(), RolesGuard)
   async createAdminUser(
     @Body(ValidationPipe) createUserDTO: CreateUserDTO,
   ): Promise<ReturnUserDTO> {
