@@ -2,7 +2,7 @@ import { CredentialsDTO } from './../auth/dtos/credentials-dto';
 import { UserRole } from './domain/user-role';
 import { CreateUserDTO } from './dtos/crete-user-dto';
 import { User } from './user.entity';
-import { EntityRepository, Repository } from 'typeorm';
+import { EntityRepository, IsNull, Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 import {
@@ -46,7 +46,15 @@ export class UserRepository extends Repository<User> {
   }
 
   async findByEmail(email: string): Promise<User> {
-    return await this.findOne({ email, status: true });
+    return await this.findOne({ email, status: true, removedAt: IsNull() });
+  }
+
+  async findById(id: string): Promise<User> {
+    return await this.findOne(id, {
+      where: {
+        removedAt: IsNull(),
+      },
+    });
   }
 
   private async hashPassword(password: string, salt: string): Promise<string> {

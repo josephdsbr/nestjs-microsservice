@@ -18,4 +18,8 @@ export class Messages {
     'User password confirmation min length restriction';
   static readonly USER_EMAIL_DOES_NOT_EXIST = 'User email does not exist.';
   static USER_PASSWORD_DOES_NOT_MATCH = 'User password does not match.';
+  static USER_NOT_FOUND = 'User not found.';
+  static USER_NAME_MUST_BE_STRING = 'User name must be a string.';
+  static DATABASE_PERSISTENCE_ERROR = 'Database persistence error.';
+  static FORBIDDEN_ACCESS = 'Forbidden access';
 }
