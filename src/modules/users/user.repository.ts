@@ -12,14 +12,6 @@ import {
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
-  /**
-   *
-   *
-   * @param {CreateUserDTO} createUserDTO
-   * @param {UserRole} role
-   * @return {*}  {Promise<User>}
-   * @memberof UserRepository
-   */
   async createUser(
     createUserDTO: CreateUserDTO,
     role: UserRole,
