@@ -11,12 +11,14 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRole } from './domain/user-role';
 import { User } from './user.entity';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(UserRepository)
     private userRepository: UserRepository,
+    private mailerService: MailerService,
   ) {}
 
   async createUser(
@@ -26,7 +28,19 @@ export class UsersService {
     if (createUserDTO.password != createUserDTO.passwordConfirmation) {
       throw new UnprocessableEntityException('As senhas não conferem.');
     } else {
-      return this.userRepository.createUser(createUserDTO, role);
+      const user = await this.userRepository.createUser(createUserDTO, role);
+
+      const mail = {
+        to: user.email,
+        from: 'noreplay@application.com',
+        subject: 'Email de Confirmação',
+        template: 'email-confirmation',
+        context: {
+          token: user.confirmationToken,
+        },
+      };
+      await this.mailerService.sendMail(mail);
+      return user;
     }
   }
 
