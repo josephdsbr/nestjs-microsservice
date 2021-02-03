@@ -17,9 +17,12 @@ export class Messages {
   static readonly USER_PASSWORD_CONFIRMATION_MIN_LENGTH_RESTRICTION =
     'User password confirmation min length restriction';
   static readonly USER_EMAIL_DOES_NOT_EXIST = 'User email does not exist.';
-  static USER_PASSWORD_DOES_NOT_MATCH = 'User password does not match.';
-  static USER_NOT_FOUND = 'User not found.';
-  static USER_NAME_MUST_BE_STRING = 'User name must be a string.';
-  static DATABASE_PERSISTENCE_ERROR = 'Database persistence error.';
-  static FORBIDDEN_ACCESS = 'Forbidden access';
+  static readonly USER_PASSWORD_DOES_NOT_MATCH =
+    'User password does not match.';
+  static readonly USER_NOT_FOUND = 'User not found.';
+  static readonly USER_NAME_MUST_BE_STRING = 'User name must be a string.';
+  static readonly DATABASE_PERSISTENCE_ERROR = 'Database persistence error.';
+  static readonly FORBIDDEN_ACCESS = 'Forbidden access';
+  static readonly USER_INVALID_TOKEN = 'User invalid token.';
+  static readonly USER_EMAIL_CONFIRMED = 'User email confirmed.';
 }

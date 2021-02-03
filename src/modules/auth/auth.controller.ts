@@ -1,3 +1,4 @@
+import { Messages } from 'src/messages/messages';
 import { UsersService } from './../users/users.service';
 import { AuthService } from './auth.service';
 import { CredentialsDTO } from './dtos/credentials-dto';
@@ -5,6 +6,8 @@ import {
   Body,
   Controller,
   Get,
+  Param,
+  Patch,
   Post,
   Req,
   UseGuards,
@@ -41,6 +44,12 @@ export class AuthController {
       UserRole.USER,
     );
     return ReturnUserDTOBuilder.fromEntity(user);
+  }
+
+  @Patch(':token')
+  async confirmEmail(@Param('token') token: string) {
+    const user = await this.authService.confirmEmail(token);
+    return { message: Messages.USER_EMAIL_CONFIRMED };
   }
 
   @Get('/me')

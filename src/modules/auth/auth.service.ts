@@ -1,7 +1,11 @@
 import { Messages } from './../../messages/messages';
 import { CredentialsDTO } from './dtos/credentials-dto';
 import { UserRepository } from './../users/user.repository';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 
@@ -32,5 +36,14 @@ export class AuthService {
     const token = await this.jwtService.sign(jwtPayload);
 
     return { token };
+  }
+
+  async confirmEmail(confirmationToken: string): Promise<void> {
+    const result = await this.userRepository.update(
+      { confirmationToken },
+      { confirmationToken: null },
+    );
+    if (result.affected === 0)
+      throw new NotFoundException(Messages.USER_INVALID_TOKEN);
   }
 }
