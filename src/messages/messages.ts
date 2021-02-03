@@ -25,4 +25,12 @@ export class Messages {
   static readonly FORBIDDEN_ACCESS = 'Forbidden access';
   static readonly USER_INVALID_TOKEN = 'User invalid token.';
   static readonly USER_EMAIL_CONFIRMED = 'User email confirmed.';
+  static readonly MAIL_SEND_WITH_PROPER_INSTRUCTIONS =
+    'Mail send with proper instructions.';
+  static USER_PASSWORD_MUST_BE_VALID = 'User password must be valid.';
+  static USER_PASSWORD_CONFIRMATION_MUST_BE_VALID =
+    'User password confirmation must be valid.';
+  static USER_PASSWORD_CHANGED_WITH_SUCCESS =
+    'User password changed with success.';
+  static USER_DOES_NOT_HAVE_PERMISSION = 'User does not have permission.';
 }

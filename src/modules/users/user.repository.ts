@@ -1,4 +1,4 @@
-import { CredentialsDTO } from './../auth/dtos/credentials-dto';
+import { CredentialsDTO } from './../auth/dtos/credentials.dto';
 import { UserRole } from './domain/user-role';
 import { CreateUserDTO } from './dtos/crete-user-dto';
 import { User } from './user.entity';
@@ -59,5 +59,13 @@ export class UserRepository extends Repository<User> {
 
   private async hashPassword(password: string, salt: string): Promise<string> {
     return bcrypt.hash(password, salt);
+  }
+
+  async changePassword(id: string, password: string) {
+    const user = await this.findOne(id);
+    user.salt = await bcrypt.genSalt();
+    user.password = await this.hashPassword(password, user.salt);
+    user.recoverToken = null;
+    await user.save();
   }
 }
